@@ -26,10 +26,10 @@ class TeachersSchedule:
     def autorization(self):
 
         username = self.driver.find_element(By.CSS_SELECTOR, "input[name='username']")
-        username.send_keys("test.tst345@skyeng.ru")
+        username.send_keys("...")
 
         password = self.driver.find_element(By.CSS_SELECTOR, "input[name='password']")
-        password.send_keys("2DbhAAPG6q")
+        password.send_keys("...")
 
         button = self.driver.find_element(By.CSS_SELECTOR, "button[class='button button--primary']")
         button.click() 
