@@ -1,11 +1,8 @@
-from time import sleep
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
 from pages.UI_page import TeachersSchedule
 
 driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
@@ -17,45 +14,59 @@ teachers_schedule.autorization()
 # Создание события через кнопку "+"
 def test_create_lesson_plus():
     
-    # Устанавливаем неявное ожидание на 10 секунд
-    teachers_schedule.driver.implicitly_wait(15)
-    
+    # Устанавливаем неявное ожидание на 5 секунд
+    teachers_schedule.driver.implicitly_wait(5)
     teachers_schedule.touch_botton_plus()
-
     teachers_schedule.create_lesson(event_name="Факультатив") 
 
+    # Проверяем, что событие появилось в списке
+    created_event = teachers_schedule.driver.find_element(By.XPATH, "//*[contains(text(), 'Факультатив')]")
+    assert created_event, "Созданное событие найдено в списке"
+
+# Создание события с названием из одного символа
 def test_short_eventname():
     
-    # Устанавливаем неявное ожидание на 10 секунд
-    teachers_schedule.driver.implicitly_wait(15)
-    
+    # Устанавливаем неявное ожидание на 5 секунд
+    teachers_schedule.driver.implicitly_wait(5)
     teachers_schedule.touch_botton_plus()
+    teachers_schedule.create_lesson(event_name="Ф")
 
-    teachers_schedule.create_lesson(event_name="Ф") 
+    # Проверяем, что событие появилось в списке
+    created_event = teachers_schedule.driver.find_element(By.XPATH, "//*[contains(text(), 'Ф')]")
+    assert created_event, "Созданное событие найдено в списке" 
 
+# Создание события с названием из > 40 символов
 def test_long_eventname():
 
-    # Устанавливаем неявное ожидание на 10 секунд
-    teachers_schedule.driver.implicitly_wait(15)
-    
+    # Устанавливаем неявное ожидание на 5 секунд
+    teachers_schedule.driver.implicitly_wait(5)
     teachers_schedule.touch_botton_plus()
-
     teachers_schedule.create_lesson(event_name="уацававацауауааваццацацацацацацацацацацауцкцкцкцкцуаууакуак")
 
-def test_create_lesson_slot():
-    
-    # Устанавливаем неявное ожидание на 10 секунд
-    teachers_schedule.driver.implicitly_wait(15)
-    
-    teachers_schedule.slot_selection()
+    # Проверяем, что событие появилось в списке обрезанное до 40 символов
+    created_event = teachers_schedule.driver.find_element(By.XPATH, "//*[contains(text(), 'уацававацауауааваццацацацацацацацацацаца')]")
+    assert created_event, "Созданное событие найдено в списке" 
 
-    teachers_schedule.create_lesson(event_name="Математика") 
+# Создание события с названием из 40 символов
+def test_max_eventname():
 
-def test_null_eventname():
-
-    # Устанавливаем неявное ожидание на 10 секунд
-    teachers_schedule.driver.implicitly_wait(15)
-    
+    # Устанавливаем неявное ожидание на 5 секунд
+    teachers_schedule.driver.implicitly_wait(5)
     teachers_schedule.touch_botton_plus()
+    teachers_schedule.create_lesson(event_name="уацававацауауааваццацацацацацацацацацаца")
+    
+    # Проверяем, что событие появилось в списке
+    created_event = teachers_schedule.driver.find_element(By.XPATH, "//*[contains(text(), 'уацававацауауааваццацацацацацацацацацаца')]")
+    assert created_event, "Созданное событие найдено в списке" 
 
-    teachers_schedule.create_lesson(event_name="")
+# Создание события с названием из смайлика (негативный)
+def test_emoji_eventname():
+
+    # Устанавливаем неявное ожидание на 5 секунд
+    teachers_schedule.driver.implicitly_wait(5)
+    teachers_schedule.touch_botton_plus()
+    teachers_schedule.create_lesson(event_name="😀")
+
+    # Проверяем, что событие появилось в списке
+    created_event = teachers_schedule.driver.find_element(By.XPATH, "//*[contains(text(), '😀')]")
+    assert created_event, "Созданное событие не найдено в списке" 
