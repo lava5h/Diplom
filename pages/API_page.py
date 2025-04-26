@@ -3,10 +3,23 @@ import requests
 # Создание проектов
 class CreateEvent:
 
+    """
+    Класс для создания личных событий в кабинете учителя.
+    
+    Этот класс предоставляет методы для создания личных событий в расписании учителя.
+    """
+
     def __init__(self, url, Cookie):
         self.url = url
         self.Cookie = Cookie
         self.event_id = None
+
+        """
+        Инициализация страницы.
+
+        url: ссылка на страницу сайта.
+        Cookie: токен для авторизации на сайте.
+        """
 
     project_data_positive = {
         "backgroundColor": "#F4F5F6",
@@ -37,6 +50,13 @@ class CreateEvent:
 
     # Функция создания события (позитивный)
     def create_event_positive(self, url):
+
+        """
+        Создание события (позитивный).
+
+        Метод создаёт личное событие через ввод валидных значений.
+        """
+
         headers = {
             "Cookie": self.Cookie,
             "Content-Type": "application/json"
@@ -48,6 +68,13 @@ class CreateEvent:
 
     # Функция создания проекта (негативный)
     def create_event_negative_color(self, url):
+
+        """
+        Создание события (негативный).
+
+        Метод создаёт личное событие через ввод невалидных значений (непредставленный цвет).
+        """
+
         headers = {
             "Cookie": self.Cookie,
             "Content-Type": "application/json"
@@ -58,6 +85,13 @@ class CreateEvent:
 
     # Функция создания проекта (негативный)
     def create_event_negative_name(self, url):
+
+        """
+        Создание события (негативный).
+
+        Метод создаёт личное событие через ввод невалидных значений (пустое название).
+        """
+
         headers = {
             "Cookie": self.Cookie,
             "Content-Type": "application/json"
@@ -68,10 +102,23 @@ class CreateEvent:
 
 class ChangeEvent:
 
+    """
+    Класс для редактирования личных событий в кабинете учителя.
+    
+    Этот класс предоставляет методы для редактирования личных событий в расписании учителя.
+    """
+
     def __init__(self, url, Cookie, event_id):
         self.url = url
         self.Cookie = Cookie
         self.event_id = event_id
+
+        """
+        Инициализация страницы.
+
+        url: ссылка на страницу сайта.
+        Cookie: токен для авторизации на сайте.
+        """
 
     def project_data_positive(self):
         project_data_positive = {
@@ -88,6 +135,13 @@ class ChangeEvent:
 
     # Функция редактирования события (позитивный)
     def change_event_positive(self, url):
+
+        """
+        Редактирование события (позитивный).
+
+        Метод редактирует личное событие изменяя название.
+        """
+
         headers = {
             "Cookie": self.Cookie,
             "Content-Type": "application/json"
@@ -98,10 +152,23 @@ class ChangeEvent:
 
 class DeleteEvent:
 
+    """
+    Класс для удаления личных событий в кабинете учителя.
+    
+    Этот класс предоставляет методы для удаления личных событий в расписании учителя.
+    """
+
     def __init__(self, url, Cookie, event_id):
         self.url = url
         self.Cookie = Cookie
         self.event_id = event_id
+
+        """
+        Инициализация страницы.
+
+        url: ссылка на страницу сайта.
+        Cookie: токен для авторизации на сайте.
+        """
 
     def project_data_positive(self):
         project_data_positive = {
@@ -112,6 +179,13 @@ class DeleteEvent:
 
     # Функция удаления события (позитивный)
     def delete_event_positive(self, url):
+
+        """
+        Удаление события (позитивный).
+
+        Метод удаляет личное событие.
+        """
+
         headers = {
             "Cookie": self.Cookie,
             "Content-Type": "application/json"

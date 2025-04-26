@@ -10,13 +10,12 @@ class TeachersSchedule:
     Этот класс предоставляет методы для работы с элементами в расписании учителя.
     """
 
-
     def __init__(self, driver):
 
         """
         Инициализация страницы.
 
-        driver: объект веб-драйвера
+        driver: объект веб-драйвера.
         """
 
         self.driver = driver
@@ -25,11 +24,17 @@ class TeachersSchedule:
     # Функция авторизации 
     def autorization(self):
 
+        """
+        Авторизация.
+
+        Метод выполняет авторизацию на сайте.
+        """
+
         username = self.driver.find_element(By.CSS_SELECTOR, "input[name='username']")
-        username.send_keys("...")
+        username.send_keys("test.tst345@skyeng.ru")
 
         password = self.driver.find_element(By.CSS_SELECTOR, "input[name='password']")
-        password.send_keys("...")
+        password.send_keys("2DbhAAPG6q")
 
         button = self.driver.find_element(By.CSS_SELECTOR, "button[class='button button--primary']")
         button.click() 
@@ -37,11 +42,24 @@ class TeachersSchedule:
     # Функция нажатия на кнопку "+"
     def touch_botton_plus(self):
 
+        """
+        Нажатие на кнопку "+".
+
+        Метод выполняет нажатие на кнопку "+" для создания события.
+        """
+
         button = self.driver.find_element(By.CSS_SELECTOR, "ds-icon[name='add']")
         button.click()
 
     # Функция создания личного события
     def create_lesson(self, event_name):
+
+        """
+        Создание личного событие.
+
+        Метод выполняет операции по вводу данных для создания личного события и создания самого события
+
+        """
 
         element = self.driver.find_element(By.XPATH, "//div[contains(.//span, 'Личное событие')]")
         element.click()
@@ -57,8 +75,3 @@ class TeachersSchedule:
 
         button = self.driver.find_element(By.CSS_SELECTOR, "button[class='root -type-primary -color-brand -size-m -active']")
         button.click()
-
-    def slot_selection(self):
-
-        slot = self.driver.find_element(By.CSS_SELECTOR, "div[class='box-hover hover-enabled']")
-        slot.click()
